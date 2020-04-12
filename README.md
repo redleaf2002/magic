@@ -1,10 +1,10 @@
 # magic
-每个module向其他的组件提供的能力，可以通过一个接口去封装，这个接口的实现也是在自己的组件中实现。
-在其他的组件中通过这个框架去直接调用这个接口的实现。
+通过一个接口去封装一个module对外提供的所有功能，这个接口的实现也是在自己的module中实现。这样使的每个module的能力更清晰。
+在其他的组件中可以通过本项目提供的库去直接调用这个接口的实现。
 
 
 ## 特点
-实现了各个module功能的封装，有利于各个module的解耦
+实现了各个module功能的封装，不仅仅使得各个module的功能更明确，又有利于各个module的解耦。
 
 ## 使用:
 #### 在需要使用的module的build gradle中增加moduleName和两个依赖
@@ -47,7 +47,6 @@ interface DemoProvider {
 
 ```
 
-
 #### 2. 注解接口的实现
 
 ```java
@@ -73,7 +72,8 @@ class DemoProviderImpl : DemoProvider {
         return "module name is demo"
     }
 }
-``
+
+```
 
 #### 3. 在需要的地方调用
 
