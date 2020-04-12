@@ -8,7 +8,7 @@
 
 ## 使用:
 #### 在需要使用的module的build gradle中增加moduleName和两个依赖
-
+```java
     defaultConfig {
           javaCompileOptions {
             annotationProcessorOptions {
@@ -22,8 +22,10 @@
     implementation 'com.leaf:magic-provider:1.0.1'
     implementation 'com.leaf:magic-compiler:1.0.3'
     }
-    
+```
    如果是kotlin的module：
+
+```java
    dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
@@ -31,7 +33,7 @@
     kapt 'com.leaf:magic-compiler:1.0.3'
 }
     
-
+```
 #### 1. 需要注解实现的接口
 
 ```java
