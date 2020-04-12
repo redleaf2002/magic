@@ -24,7 +24,6 @@
     }
 ```
    如果是kotlin的module：
-
 ```java
    dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -42,7 +41,6 @@ public interface MyTestProvider {
 }
 
 //kotlin：
-
 interface DemoProvider {
     fun getDemoName(): String
 }
@@ -67,8 +65,8 @@ public class MyTestProviderImpl implements MyTestProvider {
 }
 
 
+//kotlin
 import com.leaf.magic.annotation.Provider
-
 @Provider(provider = DemoProvider::class)
 class DemoProviderImpl : DemoProvider {
     override fun getDemoName(): String {
@@ -76,11 +74,15 @@ class DemoProviderImpl : DemoProvider {
     }
 }
 
-```
-
-
+``=
 
 #### 3. 在需要的地方调用
+
+###### 1.每次都需要新的实例：generateServiceInstance(clazz)
+###### 2.没有实例就新实例化一个 有就直接返回已经存在的：getServiceInstance(clazz)
+###### 3.同一个接口，通过type区分，可以产生不同的实例：generateServiceInstance(clazz,type) getServiceInstance(clazz,type)
+
+
 ```java
  MyTestProvider myTestProvider1 = (MyTestProvider) Magic.getInstance().getServiceInstance(MyTestProvider.class);
         if (myTestProvider1 != null) {
@@ -117,8 +119,7 @@ class DemoProviderImpl : DemoProvider {
 
 ```
 
-###### 结果：
-
+##### 结果：
 ```java
 I/Magic: myTestProvider1: MyTestProvider count = 200
 I/Magic: myTestProvider2: MyTestProvider count = 400
