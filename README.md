@@ -1,15 +1,15 @@
 # magic
-通过一个接口去封装一个module对外提供的所有功能，这个接口的实现也是在自己的module中实现。这样使的每个module的能力更清晰。
+通过一个接口去封装一个module对外提供的所有功能，这个接口的实现也是在自己的module中实现，这样使的每个module的能力更清晰明确。
 在其他的组件中可以通过本项目提供的库去直接调用这个接口的实现。
 
 
 ## 特点
-实现了各个module功能的封装，不仅仅使得各个module的功能更明确，又有利于各个module的解耦。
+简单便捷的调用其他module的功能接口。
 
 ## 使用:
 #### 在需要使用的module的build gradle中增加moduleName和两个依赖
 ```java
-    defaultConfig {
+    defaultConfig 
           javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath = true
@@ -118,7 +118,7 @@ class DemoProviderImpl : DemoProvider {
 
 ```
 
-##### 结果：
+###### 结果：
 ```java
 I/Magic: myTestProvider1: MyTestProvider count = 200
 I/Magic: myTestProvider2: MyTestProvider count = 400
