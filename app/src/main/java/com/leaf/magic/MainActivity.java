@@ -55,7 +55,6 @@ public class MainActivity extends Activity {
 
         }
 
-
         DemoProvider demoProvider = (DemoProvider) Magic.getInstance().getServiceInstance(DemoProvider.class);
         if (demoProvider != null) {
             Log.i("Magic", "demo module: " + demoProvider.getDemoName());
