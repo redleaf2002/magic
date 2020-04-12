@@ -73,14 +73,13 @@ class DemoProviderImpl : DemoProvider {
         return "module name is demo"
     }
 }
-
-``=
+``
 
 #### 3. 在需要的地方调用
 
-###### 1.每次都需要新的实例：generateServiceInstance(clazz)
-###### 2.没有实例就新实例化一个 有就直接返回已经存在的：getServiceInstance(clazz)
-###### 3.同一个接口，通过type区分，可以产生不同的实例：generateServiceInstance(clazz,type) getServiceInstance(clazz,type)
+##### 1.每次都需要新的实例：generateServiceInstance(clazz)
+##### 2.没有实例就新实例化一个 有就直接返回已经存在的：getServiceInstance(clazz)
+##### 3.同一个接口，通过type区分，可以产生不同的实例：generateServiceInstance(clazz,type) getServiceInstance(clazz,type)
 
 
 ```java
