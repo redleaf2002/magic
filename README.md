@@ -1,4 +1,6 @@
 # magic
+1.获取接口provider的实现类实例
+2.获取其他module的ViewHolder实例
 通过一个接口去封装一个module对外提供的所有功能，这个接口的实现也是在自己的module中实现，这样使的每个module的能力更清晰明确。
 在其他的组件中可以通过本项目提供的库去直接调用这个接口的实现。
 
@@ -45,8 +47,23 @@ interface DemoProvider {
     fun getDemoName(): String
 }
 
-```
 
+```
+ViewHolder接口 必须有BaseViewHolder(LayoutInflater layoutInflater, ViewGroup root, boolean attachToRoot)构造方法
+```java
+public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+    public BaseViewHolder(View itemView) {
+        super(itemView);
+    }
+
+    public BaseViewHolder(LayoutInflater layoutInflater, ViewGroup root, boolean attachToRoot) {
+        super(null);
+    }
+
+    public abstract void bindView(Object baseData, int position);
+
+}
+```
 #### 2. 注解接口的实现 可以通过type区分相同接口的不同实例
 
 ```java
@@ -84,7 +101,39 @@ class DemoProviderImpl : DemoProvider {
 }
 
 ```
+ViewHolder的实现类 必须要type和构成方法yViewHolder(LayoutInflater layoutInflater, ViewGroup root, boolean attachToRoot)
+```java
+import com.leaf.magic.annotation.Provider;
 
+@Provider(provider = BaseViewHolder.class, type = 100)
+public class MyViewHolder extends BaseViewHolder {
+    private TextView titleView;
+
+    public MyViewHolder(LayoutInflater layoutInflater, ViewGroup root, boolean attachToRoot) {
+        this(layoutInflater.inflate(R.layout.my_viewholder_layout, root, attachToRoot));
+    }
+
+    public MyViewHolder(View itemView) {
+        super(itemView);
+        titleView = itemView.findViewById(R.id.title);
+    }
+
+    @Override
+    public void bindView(Object baseData, int position) {
+        if (baseData instanceof String) {
+            String title = (String) baseData;
+            Log.i("magic", "bindView " + title);
+            titleView.setText(title);
+        }
+    }
+}
+
+// kotlin的
+
+   constructor(layoutInflater: LayoutInflater, root: ViewGroup?, attachToRoot: Boolean) :
+            this(layoutInflater.inflate(R.layout.my_viewholder_layout, root, attachToRoot))
+            
+```
 #### 3. 在需要的地方调用
 
 ##### 1.每次创建新的实例：create(clazz)
@@ -93,6 +142,7 @@ class DemoProviderImpl : DemoProvider {
 
 #### 4. 调用的实例
 
+######接口Provider的实例
 ```java
  MyTestProvider myTestProvider1 = (MyTestProvider) Magic.getInstance().get(MyTestProvider.class);
         if (myTestProvider1 != null) {
@@ -140,7 +190,16 @@ I/Magic: demo module: module name is demo
 
 ```
 
- 
+######接口ViewHolder的实例
+
+ ```java
+  BaseViewHolder baseViewHolder = (BaseViewHolder) Magic.getInstance().createViewHolder(BaseViewHolder.class, 100, getLayoutInflater(), frameLayout, false);
+        if (baseViewHolder != null) {
+            baseViewHolder.bindView("titleForTest", 0);
+            frameLayout.addView(baseViewHolder.itemView);
+        }
+
+```
 
 
 
