@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.leaf.magic.annotation.ProviderInfo;
@@ -161,12 +160,10 @@ public class Magic {
                 if (providerInfo == null) {
                     return null;
                 }
-                View view = layoutInflater.inflate(providerInfo.layoutId, root, attachToRoot);
-
                 Class<?> providerClazz = Class.forName(providerInfo.fullName);
-                Constructor constructor = providerClazz.getConstructor(View.class);
+                Constructor constructor = providerClazz.getConstructor(LayoutInflater.class, ViewGroup.class, boolean.class);
                 if (constructor != null) {
-                    Object viewObject = constructor.newInstance(view);
+                    Object viewObject = constructor.newInstance(layoutInflater, root, attachToRoot);
                     return viewObject;
                 }
             } catch (Exception e) {
@@ -176,5 +173,6 @@ public class Magic {
         return null;
 
     }
+
 
 }

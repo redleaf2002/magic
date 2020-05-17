@@ -1,11 +1,19 @@
 apply plugin: 'java-library'
+//apply plugin: 'com.novoda.bintray-release'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'com.google.auto.service:auto-service:1.0-rc2'
     api 'com.squareup:javapoet:1.7.0'
-    implementation project(':magic-annotation')
+//    implementation project(":magic-annotation")
+    implementation 'com.leaf:magic-annotation:1.3.0'
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+//publish {
+//    userOrg = 'redleaf2002'
+//    groupId = 'com.leaf'
+//    artifactId = 'magic-compiler'
+//    publishVersion = '1.3.0'
+//    desc = 'Provides the ability to invoke interface implementations of other module'
+//    website = 'https://github.com/redleaf2002/magic'
+//}

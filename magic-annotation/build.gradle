@@ -1,9 +1,20 @@
 apply plugin: 'java-library'
+//apply plugin: 'com.novoda.bintray-release'
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+//publish {
+//    userOrg = 'redleaf2002'
+//    groupId = 'com.leaf'
+//    publishVersion = '1.3.0'
+//    artifactId = 'magic-annotation'
+//    desc = 'Provides the ability to invoke interface implementations of other module'
+//    website = 'https://github.com/redleaf2002/magic'
+//}
 

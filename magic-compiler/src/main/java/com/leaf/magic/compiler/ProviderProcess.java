@@ -72,7 +72,7 @@ public class ProviderProcess extends AbstractProcessor {
             if (type > 0) {
                 key = key + "." + type;
             }
-            builder.addStatement("infoMap.put($S,new $T($L,$L,$S))", key, ProviderInfo.class, type, provider.layoutId(), fullName);
+            builder.addStatement("infoMap.put($S,new $T($L,$S))", key, ProviderInfo.class, type, fullName);
         }
 
         MethodSpec providerMethod = builder.build();

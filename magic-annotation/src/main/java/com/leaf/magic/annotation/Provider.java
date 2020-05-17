@@ -11,7 +11,5 @@ import java.lang.annotation.Target;
 public @interface Provider {
     int type() default 0;
 
-    int layoutId() default -1;
-
     Class<?> provider() default Void.class;
 }

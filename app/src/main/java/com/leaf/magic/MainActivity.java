@@ -58,11 +58,11 @@ public class MainActivity extends Activity {
             textView4.setText(myTestProvider4.getCount());
         }
 
-        DemoProvider demoProvider = (DemoProvider) Magic.getInstance().get(DemoProvider.class);
-        if (demoProvider != null) {
-            Log.i("Magic", "is other module getDemoName: " + demoProvider.getDemoName());
-            textView5.setText(demoProvider.getDemoName());
-        }
+//        DemoProvider demoProvider = (DemoProvider) Magic.getInstance().get(DemoProvider.class);
+//        if (demoProvider != null) {
+//            Log.i("Magic", "is other module getDemoName: " + demoProvider.getDemoName());
+//            textView5.setText(demoProvider.getDemoName());
+//        }
 
         BaseViewHolder baseViewHolder = (BaseViewHolder) Magic.getInstance().createViewHolder(BaseViewHolder.class, 100, getLayoutInflater(), frameLayout, false);
         if (baseViewHolder != null) {
