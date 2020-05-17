@@ -1,6 +1,6 @@
 # magic
-1.获取接口provider的实现类实例
-2.获取其他module的ViewHolder实例
+1.获取接口provider的实现类实例  
+2.获取其他module的ViewHolder实例  
 通过一个接口去封装一个module对外提供的所有功能，这个接口的实现也是在自己的module中实现，这样使的每个module的能力更清晰明确。
 在其他的组件中可以通过本项目提供的库去直接调用这个接口的实现。
 
@@ -49,7 +49,7 @@ interface DemoProvider {
 
 
 ```
-ViewHolder接口 必须有BaseViewHolder(LayoutInflater layoutInflater, ViewGroup root, boolean attachToRoot)构造方法
+###### ViewHolder接口 必须有BaseViewHolder(LayoutInflater layoutInflater, ViewGroup root, boolean attachToRoot)构造方法
 ```java
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
     public BaseViewHolder(View itemView) {
@@ -101,7 +101,7 @@ class DemoProviderImpl : DemoProvider {
 }
 
 ```
-ViewHolder的实现类 必须要type和构成方法yViewHolder(LayoutInflater layoutInflater, ViewGroup root, boolean attachToRoot)
+###### ViewHolder的实现类 必须有构成方法ViewHolder(LayoutInflater layoutInflater, ViewGroup root, boolean attachToRoot)
 ```java
 import com.leaf.magic.annotation.Provider;
 
@@ -142,7 +142,7 @@ public class MyViewHolder extends BaseViewHolder {
 
 #### 4. 调用的实例
 
-######接口Provider的实例
+###### 接口Provider的实例
 ```java
  MyTestProvider myTestProvider1 = (MyTestProvider) Magic.getInstance().get(MyTestProvider.class);
         if (myTestProvider1 != null) {
