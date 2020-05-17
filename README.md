@@ -1,5 +1,5 @@
 # magic
-提供了下面两个核心的功能。
+提供了下面两个核心的功能。  
 1.获取其他module的功能Provider接口  
 2.获取其他module的ViewHolder实例    
 组件化开发，一个核心点是每个module的功能和View应该和其他的module解耦。一个module如果想调用另一个module的功能或者复用View，可以通过接口的方式调用。
