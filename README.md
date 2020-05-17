@@ -139,6 +139,7 @@ public class MyViewHolder extends BaseViewHolder {
 ##### 1.每次创建新的实例：create(clazz)
 ##### 2.没有实例就创建新实例 有就直接返回已经存在的：get(clazz)
 ##### 3.同一个接口，通过type区分，可以产生不同的实例：create(clazz,type) get(clazz,type)
+##### 4.创建ViewHolder实例，通过type区分，可以产生不同的实例：createViewHolder(clazz,type)
 
 #### 4. 调用的实例
 
