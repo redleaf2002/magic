@@ -2,10 +2,16 @@ package com.leaf.magic.api;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.leaf.magic.annotation.ProviderInfo;
 import com.leaf.magic.api.template.IProvider;
 import com.leaf.magic.api.utils.ClassUtils;
 
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -13,12 +19,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Magic {
-    private static final String TAG = "Magic";
     private static Magic mMagic;
     private static Object object = new Object();
-    private volatile static boolean isinitialized = false;
+    private volatile static boolean initialized = false;
     private static final String MAGIC_PKG_NAME_PROVIDER = "com.leaf.magic.provider";
-    private final Map<String, String> mProviderMap = new HashMap<>();
+    private final Map<String, ProviderInfo> mProviderMap = new HashMap<>();
+    // save class instance for the method get
     private ConcurrentHashMap<String, Object> mResultMap = new ConcurrentHashMap<>();
 
     private Magic() {
@@ -36,7 +42,7 @@ public class Magic {
     }
 
     public void init(Context context) {
-        isinitialized = true;
+        initialized = true;
         initRouterModule(context);
     }
 
@@ -66,13 +72,13 @@ public class Magic {
         }
     }
 
-    public Object getServiceInstance(Class<?> clazz) {
+    public Object get(Class<?> clazz) {
         if (clazz != null) {
             String key = clazz.getName();
             if (mResultMap.containsKey(key)) {
                 return mResultMap.get(key);
             }
-            Object object = generateServiceInstance(clazz);
+            Object object = create(clazz);
             if (object != null) {
                 mResultMap.put(key, object);
             }
@@ -81,7 +87,7 @@ public class Magic {
         return null;
     }
 
-    public Object getServiceInstance(Class<?> clazz, int type) {
+    public Object get(Class<?> clazz, int type) {
         if (clazz != null) {
             String key = clazz.getName();
             if (type > 0) {
@@ -90,16 +96,16 @@ public class Magic {
             if (mResultMap.containsKey(key)) {
                 return mResultMap.get(key);
             }
-            Object object = generateServiceInstance(clazz);
+            Object object = create(clazz);
             if (object != null) {
                 mResultMap.put(key, object);
             }
-            return generateServiceInstance(clazz, type);
+            return create(clazz, type);
         }
         return null;
     }
 
-    public Object generateServiceInstance(Class<?> clazz) {
+    public Object create(Class<?> clazz) {
         if (clazz != null) {
             String key = clazz.getName();
             return instanceObject(key);
@@ -107,7 +113,7 @@ public class Magic {
         return null;
     }
 
-    public Object generateServiceInstance(Class<?> clazz, int type) {
+    public Object create(Class<?> clazz, int type) {
         if (clazz != null) {
             String key = clazz.getName();
             if (type > 0) {
@@ -118,19 +124,57 @@ public class Magic {
         return null;
     }
 
+    public Object createViewHolder(Class<?> clazz, int type, LayoutInflater layoutInflater, ViewGroup root, boolean attachToRoot) {
+        if (clazz != null) {
+            String key = clazz.getName();
+            if (type > 0) {
+                key += "." + type;
+            }
+            return instanceViewObject(key, layoutInflater, root, attachToRoot);
+        }
+        return null;
+    }
+
     private Object instanceObject(String key) {
-        if (!isinitialized) {
+        if (!initialized) {
             throw new IllegalStateException("Magic: you should call init() method firstly");
         }
         if (mProviderMap.containsKey(key)) {
             try {
-                Class<?> providerClazz = Class.forName(mProviderMap.get(key));
+                Class<?> providerClazz = Class.forName(mProviderMap.get(key).fullName);
                 return providerClazz.newInstance();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("magic", "magic error=" + e.toString());
             }
         }
         return null;
+    }
+
+    private Object instanceViewObject(String key, LayoutInflater layoutInflater, ViewGroup root, boolean attachToRoot) {
+
+        if (!initialized) {
+            throw new IllegalStateException("Magic: you should call init() method firstly");
+        }
+        if (mProviderMap.containsKey(key)) {
+            try {
+                ProviderInfo providerInfo = mProviderMap.get(key);
+                if (providerInfo == null) {
+                    return null;
+                }
+                View view = layoutInflater.inflate(providerInfo.layoutId, root, attachToRoot);
+
+                Class<?> providerClazz = Class.forName(providerInfo.fullName);
+                Constructor constructor = providerClazz.getConstructor(View.class);
+                if (constructor != null) {
+                    Object viewObject = constructor.newInstance(view);
+                    return viewObject;
+                }
+            } catch (Exception e) {
+                Log.e("magic", "magic error=" + e.toString());
+            }
+        }
+        return null;
+
     }
 
 }

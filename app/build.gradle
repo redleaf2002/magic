@@ -39,7 +39,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.leaf:magic-provider:1.0.1'
-    implementation 'com.leaf:magic-compiler:1.0.3'
+    api "com.android.support:recyclerview-v7:27.1.1"
+    implementation 'com.leaf:magic-provider:1.2.0'
+    implementation 'com.leaf:magic-compiler:1.2.0'
     implementation project(":demomodule")
 }

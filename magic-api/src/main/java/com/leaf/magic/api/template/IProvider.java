@@ -1,5 +1,8 @@
 package com.leaf.magic.api.template;
 
+
+import com.leaf.magic.annotation.ProviderInfo;
+
 import java.util.Map;
 
 /**
@@ -7,5 +10,5 @@ import java.util.Map;
  */
 
 public interface IProvider {
-    void loadInfo(Map<String, String> infoMap);
+    void loadInfo(Map<String, ProviderInfo> infoMap);
 }

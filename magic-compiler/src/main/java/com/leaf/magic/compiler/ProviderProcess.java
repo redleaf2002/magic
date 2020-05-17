@@ -2,6 +2,7 @@ package com.leaf.magic.compiler;
 
 import com.google.auto.service.AutoService;
 import com.leaf.magic.annotation.Provider;
+import com.leaf.magic.annotation.ProviderInfo;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -64,14 +65,14 @@ public class ProviderProcess extends AbstractProcessor {
         for (Element element : elementSet) {
             TypeElement typeElement = (TypeElement) element;
             String fullName = typeElement.getQualifiedName().toString();
-            Provider providerTest = typeElement.getAnnotation(Provider.class);
-            int type = providerTest.type();
-            TypeName typeName = ClassName.get(getProvider(providerTest));
+            Provider provider = typeElement.getAnnotation(Provider.class);
+            int type = provider.type();
+            TypeName typeName = ClassName.get(getProvider(provider));
             String key = typeName.toString();
             if (type > 0) {
                 key = key + "." + type;
             }
-            builder.addStatement("infoMap.put($S,$S)", key, fullName);
+            builder.addStatement("infoMap.put($S,new $T($L,$L,$S))", key, ProviderInfo.class, type, provider.layoutId(), fullName);
         }
 
         MethodSpec providerMethod = builder.build();

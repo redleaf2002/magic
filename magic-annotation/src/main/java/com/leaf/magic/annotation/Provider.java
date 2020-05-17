@@ -1,5 +1,6 @@
 package com.leaf.magic.annotation;
 
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -9,6 +10,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.CLASS)
 public @interface Provider {
     int type() default 0;
+
+    int layoutId() default -1;
 
     Class<?> provider() default Void.class;
 }

@@ -12,7 +12,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="60dp"
         android:gravity="center"
-        android:textColor="#ffffff"
+        android:text="text1"
+        android:textColor="#ff0000"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -20,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:textColor="#ffffff"
+        android:text="text2"
+        android:textColor="#ff0000"
         app:layout_constraintTop_toBottomOf="@+id/text1" />
 
     <TextView
@@ -28,7 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:textColor="#ffffff"
+        android:text="text3"
+        android:textColor="#ff0000"
         app:layout_constraintTop_toBottomOf="@+id/text2" />
 
     <TextView
@@ -36,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:textColor="#ffffff"
+        android:text="text4"
+        android:textColor="#ff0000"
         app:layout_constraintTop_toBottomOf="@+id/text3" />
 
     <TextView
@@ -44,7 +48,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:textColor="#ffffff"
+        android:text="text5"
+        android:textColor="#ff0000"
         app:layout_constraintTop_toBottomOf="@+id/text4" />
+
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@+id/text5" />
 
 </android.support.constraint.ConstraintLayout>
