@@ -1,12 +1,12 @@
 # magic
-1.获取接口provider的实现类实例  
-2.获取其他module的ViewHolder实例  
-通过一个接口去封装一个module对外提供的所有功能，这个接口的实现也是在自己的module中实现，这样使的每个module的能力更清晰明确。
-在其他的组件中可以通过本项目提供的库去直接调用这个接口的实现。
+提供了下面两个核心的功能。
+1.获取其他module的功能Provider接口  
+2.获取其他module的ViewHolder实例    
+组件化开发，一个核心点是每个module的功能和View应该和其他的module解耦。一个module如果想调用另一个module的功能或者复用View，可以通过接口的方式调用。
 
 
 ## 特点
-简单便捷的调用其他module的功能接口。
+简单便捷的调用其他module的功能接口和ViewHolder实例
 
 ## 使用:
 #### 在需要使用的module的build gradle中增加moduleName和两个依赖
