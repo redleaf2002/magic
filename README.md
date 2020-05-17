@@ -19,8 +19,8 @@
     }
     
     dependencies {
-    implementation 'com.leaf:magic-provider:1.0.1'
-    implementation 'com.leaf:magic-compiler:1.0.3'
+    implementation 'com.leaf:magic-provider:1.3.0'
+    implementation 'com.leaf:magic-compiler:1.3.0'
     }
 ```
    如果是kotlin的module：
@@ -28,8 +28,8 @@
    dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
-    implementation 'com.leaf:magic-provider:1.0.1'
-    kapt 'com.leaf:magic-compiler:1.0.3'
+    implementation 'com.leaf:magic-provider:1.3.0'
+    kapt 'com.leaf:magic-compiler:1.3.0'
 }
     
 ```
@@ -87,27 +87,27 @@ class DemoProviderImpl : DemoProvider {
 
 #### 3. 在需要的地方调用
 
-##### 1.每次都需要新的实例：generateServiceInstance(clazz)
-##### 2.没有实例就新实例化一个 有就直接返回已经存在的：getServiceInstance(clazz)
-##### 3.同一个接口，通过type区分，可以产生不同的实例：generateServiceInstance(clazz,type) getServiceInstance(clazz,type)
+##### 1.每次创建新的实例：create(clazz)
+##### 2.没有实例就创建新实例 有就直接返回已经存在的：get(clazz)
+##### 3.同一个接口，通过type区分，可以产生不同的实例：create(clazz,type) get(clazz,type)
 
 #### 4. 调用的实例
 
 ```java
- MyTestProvider myTestProvider1 = (MyTestProvider) Magic.getInstance().getServiceInstance(MyTestProvider.class);
+ MyTestProvider myTestProvider1 = (MyTestProvider) Magic.getInstance().get(MyTestProvider.class);
         if (myTestProvider1 != null) {
             Log.i("Magic", "myTestProvider1: " + myTestProvider1.getCount());
             textView1.setText(myTestProvider1.getCount());
         }
 
-MyTestProvider myTestProvider2 = (MyTestProvider) Magic.getInstance().getServiceInstance(MyTestProvider.class);
+MyTestProvider myTestProvider2 = (MyTestProvider) Magic.getInstance().get(MyTestProvider.class);
         if (myTestProvider2 != null) {
             Log.i("Magic", "myTestProvider2: " + myTestProvider2.getCount());
             textView2.setText(myTestProvider2.getCount());
 
         }
 
-MyTestProvider myTestProvider3 = (MyTestProvider) Magic.getInstance().generateServiceInstance(MyTestProvider.class);
+MyTestProvider myTestProvider3 = (MyTestProvider) Magic.getInstance().create(MyTestProvider.class);
         if (myTestProvider3 != null) {
             Log.i("Magic", "myTestProvider3: " + myTestProvider3.getCount());
             textView3.setText(myTestProvider2.getCount());
@@ -115,14 +115,14 @@ MyTestProvider myTestProvider3 = (MyTestProvider) Magic.getInstance().generateSe
         }
 
 // 获取type=100的MyTestProvider接口实例
-MyTestProvider myTestProvider4 = (MyTestProvider) Magic.getInstance().generateServiceInstance(MyTestProvider.class, 100);
+MyTestProvider myTestProvider4 = (MyTestProvider) Magic.getInstance().create(MyTestProvider.class, 100);
         if (myTestProvider4 != null) {
             Log.i("Magic", "myTestProvider4: " + myTestProvider4.getCount());
             textView4.setText(myTestProvider4.getCount());
 
         }
        
- DemoProvider demoProvider = (DemoProvider) Magic.getInstance().getServiceInstance(DemoProvider.class);
+ DemoProvider demoProvider = (DemoProvider) Magic.getInstance().get(DemoProvider.class);
         if (demoProvider != null) {
             Log.i("Magic", "demo module: " + demoProvider.getDemoName());
             textView5.setText(demoProvider.getDemoName());
