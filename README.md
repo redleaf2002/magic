@@ -135,6 +135,7 @@ public class MyViewHolder extends BaseViewHolder {
             
 ```
 #### 3. 在需要的地方调用
+##### 首先在Application中初始化 Magic.getInstance(applicationContext).init()
 
 ##### 1.每次创建新的实例：create(clazz)
 ##### 2.没有实例就创建新实例 有就直接返回已经存在的：get(clazz)
